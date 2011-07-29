@@ -5,7 +5,7 @@
 
     <!-- Fileset for all files -->
     <fileset dir="." id="allfiles">
-        <include name="**" />
+        <include name="../../**" />
     </fileset>
     
     <!-- ============================================  -->
@@ -45,7 +45,7 @@
     	<copy todir="/var/www/motivado-dev/next/" >
     		<fileset refid="allfiles" />
     	</copy>
-    	<exec command="chown -R jira:apachejira /var/www/motivado-dev/next" checkreturn="true" />
+    	<exec command="chown -R jira:apachejira /var/www/motivado-dev/next" />
     </target>
     
     <!-- ============================================  -->
