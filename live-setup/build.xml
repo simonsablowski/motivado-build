@@ -45,7 +45,7 @@
     	<copy todir="/var/www/motivado-dev/next/" >
     		<fileset refid="allfiles" />
     	</copy>
-    	<chown file="/var/www/motivado-dev/next" user="jira.apachejira" failonerror="true" />
+    	<exec command="chown -R apache:apachejira /var/www/motivado-dev/next" checkreturn="true" />
     </target>
     
     <!-- ============================================  -->
