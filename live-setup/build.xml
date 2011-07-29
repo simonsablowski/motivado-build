@@ -45,7 +45,7 @@
     	<copy todir="/var/www/motivado-dev/next" >
     		<fileset refid="allfiles" />
     	</copy>
-    	<exec command="chown -R jira:apachejira /var/www/motivado-dev/next" />
+    	<exec command="chown -R jira:apachejira /var/www/motivado-dev/next" checkreturn="true" />
     </target>
     
     <!-- ============================================  -->
