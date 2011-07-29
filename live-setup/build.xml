@@ -4,8 +4,8 @@
     <property file="./build.properties" />
 
     <!-- Fileset for all files -->
-    <fileset dir="." id="allfiles">
-        <include name="../../**" />
+    <fileset dir="./../../" id="allfiles">
+        <include name="**" />
     </fileset>
     
     <!-- ============================================  -->
@@ -42,7 +42,7 @@
     <target name="moveToDev" description="moves the sources to the live server">
     	<delete dir="/var/www/motivado-dev/next" failonerror="true" includeemptydirs="true"/>
     	<mkdir dir="/var/www/motivado-dev/next" />
-    	<copy todir="/var/www/motivado-dev/next/" >
+    	<copy todir="/var/www/motivado-dev/next" >
     		<fileset refid="allfiles" />
     	</copy>
     	<exec command="chown -R jira:apachejira /var/www/motivado-dev/next" />
