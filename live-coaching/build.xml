@@ -4,7 +4,7 @@
     <property file="./build.properties" />
 
     <!-- Fileset for all files -->
-    <fileset dir="./../../" id="allfiles">
+    <fileset dir="." id="allfiles">
         <include name="**" />
     </fileset>
     
@@ -35,26 +35,6 @@
 			todir="${buildDir}"
 		/>
     </target>
-    
-    <!-- ============================================  -->
-    <!-- Target: moveToDev                             -->
-    <!-- ============================================  -->
-    <target name="moveToDev" description="moves the sources to the live server">
-    	<delete dir="/var/www/motivado-dev/next" failonerror="true" includeemptydirs="true"/>
-    	<mkdir dir="/var/www/motivado-dev/next" />
-    	<copy todir="/var/www/motivado-dev/next" >
-    		<fileset refid="allfiles" />
-    	</copy>
-    </target>
-    
-    <!-- ============================================  -->
-    <!-- Target: switchDev                             -->
-    <!-- ============================================  -->
-    <target name="switchDev" description="switches the current with the new sources">
-    	<tstamp />
-		<move file="/var/www/motivado-dev/current" tofile="/var/www/motivado-dev/old_${DSTAMP}_${TSTAMP}"/>
-		<move file="/var/www/motivado-dev/next" tofile="/var/www/motivado-dev/current"/>
-    </target>
 
     <!-- ============================================  -->
     <!-- Target: local                      		   -->
@@ -68,22 +48,16 @@
     <!-- ============================================  -->
     <!-- Target: dev                        		   -->
     <!-- ============================================  -->
-    <target name="dev" description="adjust settings for development deployment">
-    	<exec command="rm -rf `find . -name .svn`" dir="." />
+    <target name="dev" depends="svnexport" description="adjust settings for development deployment">
         <copy file="${shop.local.xml.file}.dev" tofile="${shop.local.xml.file}" />
         <copy file="${api.configuration.file}.dev" tofile="${api.configuration.file}" />
-        <phingcall target="moveToDev" />
-        <phingcall target="switchDev" />
         <echo>BUILD SUCCESS</echo>
     </target>
     
     <!-- ============================================  -->
     <!-- Target: live                       		   -->
     <!-- ============================================  -->
-    <target name="live" description="adjust settings for live deployment">
-    	<exec command="rm -rf `find . -name .svn`" dir="." />
-        <copy file="${shop.local.xml.file}.live" tofile="${shop.local.xml.file}" />
-        <copy file="${api.configuration.file}.live" tofile="${api.configuration.file}" />
+    <target name="live" depends="svnexport" description="adjust settings for live deployment">
         <copy file="${importer.configuration.file}.live" tofile="${importer.configuration.file}" />
         <exec command="php coaching-import/cli/import.php" checkreturn="true" />
         <!-- KILL SESSIONS -->
