@@ -58,7 +58,7 @@
     <!-- Target: live                       		   -->
     <!-- ============================================  -->
     <target name="live" description="adjust settings for live deployment">
-        <copy file="${importer.configuration.fromfile}.live" tofile="${importer.configuration.tofile}" />
+        <copy file="${importer.configuration.fromfile}" tofile="${importer.configuration.tofile}" />
         <exec command="php coaching-import/cli/import.php" checkreturn="true" />
         <!-- KILL SESSIONS -->
         <echo>BUILD SUCCESS</echo>
