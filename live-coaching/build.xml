@@ -1,7 +1,7 @@
 <?xml version="1.0"  encoding="UTF-8" ?>
 
 <project name="live-setup" basedir="." default="live">
-    <property file="./build.properties" />
+    <property file="build-scripts/live-coaching/build.properties" />
 
     <!-- Fileset for all files -->
     <fileset dir="." id="allfiles">
