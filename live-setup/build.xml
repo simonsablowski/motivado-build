@@ -86,8 +86,8 @@
         <copy file="${shop.local.xml.file}" todir="shop/app/etc" />
         <copy file="${api.configuration.file}" todir="motivado-api" />
         <copy file="${importer.configuration.file}" todir="coaching-import" />
-        <!--exec command="php coaching-import/cli/import.php" checkreturn="true" /-->
-        <delete dir="coaching-import" includeemptydirs="true" failonerror="true" />
+        <exec command="php coaching-import/cli/import.php" checkreturn="true" />
+        <!--delete dir="coaching-import" includeemptydirs="true" failonerror="true" /-->
         <delete dir="modeling" includeemptydirs="true" failonerror="true" />
         <delete dir="build-scripts" includeemptydirs="true" failonerror="true" />
         <delete dir="configurations" includeemptydirs="true" failonerror="true" />
@@ -102,6 +102,10 @@
         	 password="${server.password}"
         	 host="${server.host}" 
         	 command="tar -C /home/john316 -xf /home/john316/phing.tar" />
+	<ssh username="${server.username}" 
+                 password="${server.password}"
+                 host="${server.host}" 
+                 command="rm /home/john316/phing.tar" />
         <!-- KILL SESSIONS -->
         <echo>BUILD SUCCESS</echo>
     </target>
