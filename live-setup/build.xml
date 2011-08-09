@@ -46,7 +46,7 @@
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
-                 command="mv ${server.path.current} ${server.old.prefix}`date +%m%d%y_%M%S`" />
+                 command="mv ${server.path.current} ${server.old.prefix}`date +%F_%H%M%S`" />
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
