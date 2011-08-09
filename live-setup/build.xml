@@ -82,9 +82,9 @@
     <!-- ============================================  -->
     <target name="live" description="adjust settings for live deployment">
     	<exec command="rm -rf `find . -name .svn`" dir="." />
-        <copy file="${shop.local.xml.file}" tofile="shop/app/etc" />
-        <copy file="${api.configuration.file}" tofile="motivado-api" />
-        <copy file="${importer.configuration.file}" tofile="coaching-import" />
+        <copy file="${shop.local.xml.file}" todir="shop/app/etc" />
+        <copy file="${api.configuration.file}" todir="motivado-api" />
+        <copy file="${importer.configuration.file}" todir="coaching-import" />
         <exec command="php coaching-import/cli/import.php" checkreturn="true" />
         <delete dir="coaching-import" includeemptydirs="true" failonerror="true" />
         <scp username="root" 
