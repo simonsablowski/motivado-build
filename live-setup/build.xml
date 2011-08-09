@@ -8,18 +8,26 @@
     <!-- Target: live                       		   -->
     <!-- ============================================  -->
     <target name="live" description="adjust settings for live deployment">
+    	<echo>Removing .svn files...</echo>
     	<exec command="rm -rf `find . -name .svn`" dir="." />
+    	<echo>Removing .svn files... done.</echo>
+    	<echo>Copying configuration files...</echo>
         <copy file="${shop.local.xml.file}" todir="shop/app/etc" />
         <copy file="${api.configuration.file}" todir="motivado-api" />
         <copy file="${importer.configuration.file}" todir="coaching-import" />
+        <echo>Copying configuration files... done.</echo>
 		<echo>Importing Coachings...</echo>
         <exec command="php coaching-import/cli/import.php" checkreturn="true" />
 		<echo>Importing Coachings... done.</echo>
+		<echo>Cleanup</echo>
         <delete dir="coaching-import" includeemptydirs="true" failonerror="true" />
         <delete dir="modeling" includeemptydirs="true" failonerror="true" />
         <delete dir="build-scripts" includeemptydirs="true" failonerror="true" />
         <delete dir="configurations" includeemptydirs="true" failonerror="true" />
-        <tar destfile="phing.tar" basedir="." compression="gzip"/>
+        <echo>Creating tarball...</echo>
+        <exec command="tar cfz phing.tar ./" checkreturn="true" />
+        <echo>Creating tarball... done.</echo>
+        <echo>Copying to live system...</echo>
         <scp username="${server.username}" 
         	 password="${server.password}"
         	 host="${server.host}" 
@@ -34,6 +42,7 @@
                  password="${server.password}"
                  host="${server.host}" 
                  command="rm ${server.path.next}/phing.tar" />
+        <echo>Copying to live system... done.</echo>
         <echo>Switching Website...</echo>
         <ssh username="${server.username}" 
                  password="${server.password}"
@@ -47,23 +56,24 @@
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
-                 command="ln -s ${server.path.current}/../../content ${server.path.current}/content" />
+                 command="ln -s ${server.path.current}/shop/../../content ${server.path.current}/shop/content" />
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
-                 command="ln -s ${server.path.current}/../../coops ${server.path.current}/coops" />
+                 command="ln -s ${server.path.current}/shop/../../coops ${server.path.current}/shop/coops" />
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
-                 command="ln -s ${server.path.current}/../../download ${server.path.current}/media/download" />
+                 command="ln -s ${server.path.current}/shop/../../download ${server.path.current}/shop/media/documents" />
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
-                 command="ln -s ${server.path.current}/../../media ${server.path.current}/media" />
+                 command="ln -s ${server.path.current}/shop/../../media ${server.path.current}/shop/media" />
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
-                 command="ln -s ${server.path.current}/../../player ${server.path.current}/player" />
+                 command="ln -s ${server.path.current}/shop/../../player ${server.path.current}/shop/player" />
+        <echo>Creating symbolic links... done.</echo>
 		<echo>Switching Website... done.</echo>                 
         <!-- KILL SESSIONS -->
         <echo>BUILD SUCCESS</echo>
