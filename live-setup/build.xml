@@ -29,7 +29,7 @@
         <ssh username="${server.username}" 
         	 password="${server.password}"
         	 host="${server.host}" 
-        	 command="tar -C ${server.path.next} -xf ${server.path.next}/phing.tar" />
+        	 command="tar --no-same-owner -C ${server.path.next} -xf ${server.path.next}/phing.tar" />
 		<ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
@@ -43,6 +43,27 @@
                  password="${server.password}"
                  host="${server.host}" 
                  command="mv ${server.path.next} ${server.path.current}" />
+        <echo>Creating symbolic links...</echo>
+        <ssh username="${server.username}" 
+                 password="${server.password}"
+                 host="${server.host}" 
+                 command="ln -s ${server.path.current}/../../content ${server.path.current}/content" />
+        <ssh username="${server.username}" 
+                 password="${server.password}"
+                 host="${server.host}" 
+                 command="ln -s ${server.path.current}/../../coops ${server.path.current}/coops" />
+        <ssh username="${server.username}" 
+                 password="${server.password}"
+                 host="${server.host}" 
+                 command="ln -s ${server.path.current}/../../download ${server.path.current}/media/download" />
+        <ssh username="${server.username}" 
+                 password="${server.password}"
+                 host="${server.host}" 
+                 command="ln -s ${server.path.current}/../../media ${server.path.current}/media" />
+        <ssh username="${server.username}" 
+                 password="${server.password}"
+                 host="${server.host}" 
+                 command="ln -s ${server.path.current}/../../player ${server.path.current}/player" />
 		<echo>Switching Website... done.</echo>                 
         <!-- KILL SESSIONS -->
         <echo>BUILD SUCCESS</echo>
