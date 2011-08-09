@@ -101,7 +101,7 @@
         <ssh username="${server.username}" 
         	 password="${server.password}"
         	 host="${server.host}" 
-        	 command="cd /home/john316 && tar xf phing.tar && rm phing.tar" />
+        	 command="cd /home/john316 && tar xf phing.tar" />
         <!-- KILL SESSIONS -->
         <echo>BUILD SUCCESS</echo>
     </target>
