@@ -55,6 +55,10 @@
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
+                 command="ln -s ${server.path.current}/shop/../../media ${server.path.current}/shop/media" />
+        <ssh username="${server.username}" 
+                 password="${server.password}"
+                 host="${server.host}" 
                  command="ln -s ${server.path.current}/shop/../../motivado-old ${server.path.current}/shop/application" />
         <ssh username="${server.username}" 
                  password="${server.password}"
@@ -68,10 +72,6 @@
                  password="${server.password}"
                  host="${server.host}" 
                  command="ln -s ${server.path.current}/shop/media/documents ${server.path.current}/shop/download" />
-        <ssh username="${server.username}" 
-                 password="${server.password}"
-                 host="${server.host}" 
-                 command="ln -s ${server.path.current}/shop/../../media ${server.path.current}/shop/media" />
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
