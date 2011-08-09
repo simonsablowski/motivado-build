@@ -3,57 +3,6 @@
 <project name="live-setup" basedir="." default="live">
     <property file="build-scripts/live-coaching/build.properties" />
 
-    <!-- Fileset for all files -->
-    <fileset dir="." id="allfiles">
-        <include name="**" />
-    </fileset>
-    
-    <!-- ============================================  -->
-    <!-- Target: svnexport	                           -->
-    <!-- ============================================  -->
-    <target name="svnexport" description="checks out the required sources from SVN">
-		<svnexport
-			svnpath="${svn.path}"
-			force="true"
-			nocache="true"
-			ignoreexternals="false"
-			repositoryurl="${svn.url}"
-			todir="${buildDir}"
-		/>
-    </target>
-    
-    <!-- ============================================  -->
-    <!-- Target: svncheckout                           -->
-    <!-- ============================================  -->
-    <target name="svncheckout" description="checks out the required sources from SVN">
-		<svncheckout
-			svnpath="${svn.path}"
-			force="true"
-			nocache="true"
-			ignoreexternals="false"
-			repositoryurl="${svn.url}"
-			todir="${buildDir}"
-		/>
-    </target>
-
-    <!-- ============================================  -->
-    <!-- Target: local                      		   -->
-    <!-- ============================================  -->
-    <target name="local" depends="svncheckout" description="adjust settings for local development">
-        <copy file="${shop.local.xml.file}.local" tofile="${shop.local.xml.file}" />
-        <copy file="${api.configuration.file}.local" tofile="${api.configuration.file}" />
-        <echo>BUILD SUCCESS</echo>
-    </target>
-    
-    <!-- ============================================  -->
-    <!-- Target: dev                        		   -->
-    <!-- ============================================  -->
-    <target name="dev" depends="svnexport" description="adjust settings for development deployment">
-        <copy file="${shop.local.xml.file}.dev" tofile="${shop.local.xml.file}" />
-        <copy file="${api.configuration.file}.dev" tofile="${api.configuration.file}" />
-        <echo>BUILD SUCCESS</echo>
-    </target>
-    
     <!-- ============================================  -->
     <!-- Target: live                       		   -->
     <!-- ============================================  -->
