@@ -2,9 +2,10 @@
 
 <project name="live-setup" basedir="." default="live">
     <property file="build-scripts/live-setup/build.properties" />
+    <property file="configurations/live-server/build.properties" />
 
     <!-- Fileset for all files -->
-    <fileset dir="./../../" id="allfiles">
+    <fileset dir="./" id="allfiles">
         <include name="**" />
     </fileset>
     
@@ -87,14 +88,20 @@
         <copy file="${importer.configuration.file}" todir="coaching-import" />
         <exec command="php coaching-import/cli/import.php" checkreturn="true" />
         <delete dir="coaching-import" includeemptydirs="true" failonerror="true" />
-        <scp username="root" 
-        	 password="tmpRsPw"
-        	 host="188.138.109.60" 
+        <delete dir="modeling" includeemptydirs="true" failonerror="true" />
+        <delete dir="build-scripts" includeemptydirs="true" failonerror="true" />
+        <delete dir="configurations" includeemptydirs="true" failonerror="true" />
+        <tar destfile="phing.tar" basedir="." compression="gzip"/>
+        <scp username="${server.username}" 
+        	 password="${server.password}"
+        	 host="${server.host}" 
         	 todir="/home/john316"
         	 autocreate="true"
-        >
-        	<fileset refid="allfiles" />
-        </scp>
+        	 file="phing.tar" />
+        <ssh username="${server.username}" 
+        	 password="${server.password}"
+        	 host="${server.host}" 
+        	 command="cd /home/john316 && tar xf phing.tar && rm phing.tar />
         <!-- KILL SESSIONS -->
         <echo>BUILD SUCCESS</echo>
     </target>
