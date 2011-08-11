@@ -1,0 +1,29 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+
+<project name="live-tests" basedir="." default="live">
+    
+    <!-- ============================================  -->
+    <!-- Target: live                       		   -->
+    <!-- ============================================  -->
+    <target name="live" description="start tests for live website">
+    	<svnexport
+		   svnpath="${svn.path}"
+		   username="fisheye"
+		   password="uAYDzgXKQeCcanbE"
+		   force="true"
+		   nocache="true"
+		   repositoryurl="${svn.url.1}"
+		   todir="./"/>
+		<svnexport
+		   svnpath="${svn.path}"
+		   username="fisheye"
+		   password="uAYDzgXKQeCcanbE"
+		   force="true"
+		   nocache="true"
+		   repositoryurl="${svn.url.2}"
+		   todir="./"/>
+		<phpunit />
+        <echo>BUILD SUCCESS</echo>
+    </target>
+    
+</project>
