@@ -4,7 +4,7 @@
     <!-- Target: live                                      -->
     <!-- ============================================  -->
     <target name="live" description="start tests for live website">
-        <exec command="phpunit" dir="." checkreturn="true" logoutput="true" />
+        <exec command="phpunit" dir="build-scripts/live-tests" checkreturn="true" logoutput="true" />
     </target>
 
 </project>
