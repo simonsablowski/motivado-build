@@ -13,7 +13,7 @@
 		   force="true"
 		   nocache="true"
 		   repositoryurl="${svn.url.1}"
-		   todir="./"/>
+		   todir="."/>
 		<svnexport
 		   svnpath="${svn.path}"
 		   username="fisheye"
@@ -21,7 +21,7 @@
 		   force="true"
 		   nocache="true"
 		   repositoryurl="${svn.url.2}"
-		   todir="./"/>
+		   todir="."/>
 		<phpunit />
         <echo>BUILD SUCCESS</echo>
     </target>
