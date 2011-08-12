@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="true"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         forceCoversAnnotation="false"
+         mapTestClassNameToCoveredClassName="false"
+         processIsolation="false"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         syntaxCheck="false"
+         testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader"
+         bootstrap="../../tests/bootstrap.php"
+         strict="false"
+         verbose="false">
+	<testsuites>
+		<testsuite name="MotivadoDe Test Suite">
+			<directory>../../tests/phpunit/MotivadoDe</directory>
+			<directory>../../tests/selenium/MotivadoDe</directory>
+		</testsuite>
+	</testsuites>
+	<logging>
+		<log type="junit" target="../../junit-logfile.xml" logIncompleteSkipped="false"/>
+	</logging>
+	<selenium>
+		<browser name="Firefox on Linux"
+		         browser="*firefox /usr/bin/firefox"
+		         host="localhost"
+		         port="4444"
+		         timeout="30000"/>
+	</selenium>
+</phpunit>
+
