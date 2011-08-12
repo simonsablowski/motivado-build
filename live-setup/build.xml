@@ -9,7 +9,7 @@
     <!-- ============================================  -->
     <target name="live" description="adjust settings for live deployment">
     	<echo>Removing .svn files...</echo>
-    	<exec command="rm -rf `find . -name .svn`" dir="." />
+    	<exec command="rm -rf `find . -type d -name .svn`" dir="." />
     	<echo>Copying configuration files...</echo>
         <copy file="${shop.local.xml.file}" todir="shop/app/etc" />
         <copy file="${api.configuration.file}" todir="motivado-api" />
@@ -78,6 +78,11 @@
                  host="${server.host}" 
                  command="ln -s ${server.path.current}/shop/../player/ ${server.path.current}/shop/player" />
         <echo>Creating symbolic links... done.</echo>
+        <echo>Changing file mod...</echo>
+        <ssh username="${server.username}" 
+                 password="${server.password}"
+                 host="${server.host}" 
+                 command="chmod -R 777 ${server.path.current}/shop/var" />
 		<echo>Switching Website... done.</echo>                 
         <!-- KILL SESSIONS -->
         <echo>BUILD SUCCESS</echo>
