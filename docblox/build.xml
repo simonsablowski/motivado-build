@@ -1,0 +1,21 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+
+<project name="live-setup" basedir="." default="run">
+
+	<!-- ============================================  -->
+    <!-- Target: docblox                       		   -->
+    <!-- ============================================  -->
+    <target name="docblox">
+    	<exec command="/usr/local/zend/bin/docblox run -d ${path} -t /var/www/tools/apidoc/${path} 2>&1 | tee -a /var/www/tools/apidoc_error/${path}/docblox.log" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: run                     	  		   -->
+    <!-- ============================================  -->
+    <target name="run" description="run the docblox generator">
+    	<property name="paths" value="coaching-import,coaching-test" />
+		<foreach list="${paths}" param="path" target="docblox" />
+        <echo>BUILD SUCCESS</echo>
+    </target>
+    
+</project>
