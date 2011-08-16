@@ -6,7 +6,7 @@
     <!-- Target: docblox                       		   -->
     <!-- ============================================  -->
     <target name="docblox">
-    	<exec command="/usr/local/zend/bin/docblox run -d ../../${path} -t /var/tools/apidoc/${path} | tee -a /var/tools/apidoc/${path}/docblox.log" />
+    	<exec command="/usr/local/zend/bin/docblox run -d ${path} -t /var/tools/apidoc/${path} | tee -a /var/tools/apidoc/${path}/docblox.log" />
     </target>
 
     <!-- ============================================  -->
