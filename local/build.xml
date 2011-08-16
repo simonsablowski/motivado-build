@@ -1,0 +1,171 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+
+<project name="live-setup" basedir="." default="local">
+    <property file="build.properties" />
+
+	<!-- ============================================  -->
+    <!-- Target: MOcheckout                    		   -->
+    <!-- ============================================  -->
+    <target name="MOcheckout" description="svn checkout MO repo">
+	    <svncheckout
+			svnpath="${svn.path}"
+			username="${svn.user}"
+			nocache="true"
+			repositoryurl="svn+ssh://tools.motivado.com/MO/trunk/${repo}"
+			todir="${documentRoot}/${repo}"
+	    />
+    </target>
+   
+    <!-- ============================================  -->
+    <!-- Target: MScheckout                    		   -->
+    <!-- ============================================  -->
+    <target name="MScheckout" description="svn checkout MS repo">
+	    <svncheckout
+			svnpath="${svn.path}"
+			username="${svn.user}"
+			nocache="true"
+			repositoryurl="svn+ssh://tools.motivado.com/MS/trunk/shop"
+			todir="${documentRoot}/shop"
+	    />
+    </target>
+    
+    <!-- ============================================  -->
+    <!-- Target: NCcheckout                            -->
+    <!-- ============================================  -->
+    <target name="NCcheckout" description="svn checkout nacho/cheese repo">
+	    <svncheckout
+			svnpath="${svn.path}"
+			nocache="true"
+			repositoryurl="http://${repo}.googlecode.com/svn/trunk"
+			todir="${documentRoot}/${repo}"
+	    />
+	</target>
+
+    <!-- ============================================  -->
+    <!-- Target: local                       		   -->
+    <!-- ============================================  -->
+    <target name="local" description="create local working copy">
+    	<input propertyname="documentRoot">Your document root: </input>
+    	<input propertyname="svn.path" defaultValue="/usr/bin/svn">Path to svn binary: </input>    
+    	<input propertyname="svn.user">Your SVN username: </input>
+    	<input propertyname="nacho" validArgs="y,n" defaultValue="y">Checkout nacho? </input>
+    	<input propertyname="cheese" validArgs="y,n" defaultValue="y">Checkout cheese? </input>
+    	<input propertyname="coaching-import" validArgs="y,n" defaultValue="y">Checkout coaching-import? </input>
+    	<input propertyname="coaching-test" validArgs="y,n" defaultValue="y">Checkout coaching-test? </input>
+    	<input propertyname="condition-evaluator" validArgs="y,n" defaultValue="y">Checkout condition-evaluator? </input>
+    	<input propertyname="json-generator" validArgs="y,n" defaultValue="y">Checkout json-generator? </input>
+    	<input propertyname="library" validArgs="y,n" defaultValue="y">Checkout library (used for tests)? </input>
+    	<input propertyname="motivado-api" validArgs="y,n" defaultValue="y">Checkout motivado-api? </input>
+    	<input propertyname="motivao-ui" validArgs="y,n" defaultValue="y">Checkout motivao-ui? </input>
+    	<input propertyname="player" validArgs="y,n" defaultValue="y">Checkout player? </input>
+    	<input propertyname="tests" validArgs="y,n" defaultValue="y">Checkout tests? </input>
+    	<input propertyname="shop" validArgs="y,n" defaultValue="y">Checkout shop? </input>
+		
+		<if>
+			<equals arg1="${nacho}" arg2="y" />
+			<then>
+				<phingcall target="NCcheckout">
+					<property name="repo" value="nacho" />
+				</phingcall>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${cheese}" arg2="y" />
+			<then>
+				<phingcall target="NCcheckout">
+					<property name="repo" value="cheese" />
+				</phingcall>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${shop}" arg2="y" />
+			<then>
+				<phingcall target="MScheckout" />
+				<copy file="${documentRoot}/shop/app/etc/local.xml.local" tofile="${documentRoot}/shop/app/etc/local.xml" overwrite="true"/>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${coaching-import}" arg2="y" />
+			<then>
+				<phingcall target="MOcheckout">
+					<property name="repo" value="coaching-import" />
+				</phingcall>
+				<copy file="${documentRoot}/coaching-import/configuration.php.default" tofile="${documentRoot}/coaching-import/configuration.php" overwrite="true"/>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${coaching-test}" arg2="y" />
+			<then>
+				<phingcall target="MOcheckout">
+					<property name="repo" value="coaching-test" />
+				</phingcall>
+				<copy file="${documentRoot}/coaching-test/configuration.php.default" tofile="${documentRoot}/coaching-test/configuration.php" overwrite="true"/>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${condition-evaluator}" arg2="y" />
+			<then>
+				<phingcall target="MOcheckout">
+					<property name="repo" value="condition-evaluator" />
+				</phingcall>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${json-generator}" arg2="y" />
+			<then>
+				<phingcall target="MOcheckout">
+					<property name="repo" value="json-generator" />
+				</phingcall>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${library}" arg2="y" />
+			<then>
+				<phingcall target="MOcheckout">
+					<property name="repo" value="library" />
+				</phingcall>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${motivado-api}" arg2="y" />
+			<then>
+				<phingcall target="MOcheckout">
+					<property name="repo" value="motivado-api" />
+				</phingcall>
+				<copy file="${documentRoot}/motivado-api/configuration.php.default" tofile="${documentRoot}/motivado-api/configuration.php" overwrite="true"/>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${motivado-ui}" arg2="y" />
+			<then>
+				<phingcall target="MOcheckout">
+					<property name="repo" value="motivado-ui" />
+				</phingcall>
+				<copy file="${documentRoot}/motivado-ui/configuration.php.default" tofile="${documentRoot}/motivado-ui/configuration.php" overwrite="true"/>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${player}" arg2="y" />
+			<then>
+				<phingcall target="MOcheckout">
+					<property name="repo" value="player" />
+				</phingcall>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${tests}" arg2="y" />
+			<then>
+				<phingcall target="MOcheckout">
+					<property name="repo" value="tests" />
+				</phingcall>
+			</then>
+		</if>
+		<echo>******************************************************************************************************</echo>
+		<echo>* Please edit default configuration file within each subdirectory and take the appropriate settings. *</echo>
+		<echo>*                                                                                                    *</echo>
+		<echo>* Todo: Include DB dumps                                                                             *</echo>
+		<echo>******************************************************************************************************</echo>
+        <echo>BUILD SUCCESS</echo>
+    </target>
+    
+</project>
