@@ -1,6 +1,6 @@
 <?xml version="1.0"  encoding="UTF-8" ?>
 
-<project name="live-setup" basedir="." default="local">
+<project name="local" basedir="." default="local">
 
 	<!-- ============================================  -->
     <!-- Target: MOcheckout                    		   -->
@@ -161,6 +161,7 @@
 		</if>
 		<echo>******************************************************************************************************</echo>
 		<echo>* Please edit default configuration file within each subdirectory and take the appropriate settings. *</echo>
+		<echo>* Add a Virtual Host to your apache configuration and restart your webserver.                        *</echo>
 		<echo>*                                                                                                    *</echo>
 		<echo>* Todo: Include DB dumps                                                                             *</echo>
 		<echo>******************************************************************************************************</echo>
