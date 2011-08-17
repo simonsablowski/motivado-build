@@ -56,27 +56,27 @@
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
-                 command="ln -s ${server.path.current}/shop/../../media/ ${server.path.current}/shop/media" />
+                 command="ln -s ../../media/ ${server.path.current}/shop/media" />
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
-                 command="ln -s ${server.path.current}/shop/../../motivado-old/ ${server.path.current}/shop/application" />
+                 command="ln -s ../../motivado-old/ ${server.path.current}/shop/application" />
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
-                 command="ln -s ${server.path.current}/shop/../../content/ ${server.path.current}/shop/content" />
+                 command="ln -s ../../content/ ${server.path.current}/shop/content" />
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
-                 command="ln -s ${server.path.current}/shop/../../coops/ ${server.path.current}/shop/coops" />
+                 command="ln -s ../../coops/ ${server.path.current}/shop/coops" />
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
-                 command="ln -s ${server.path.current}/shop/media/documents/ ${server.path.current}/shop/download" />
+                 command="ln -s media/documents/ ${server.path.current}/shop/download" />
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
-                 command="ln -s ${server.path.current}/shop/../player/ ${server.path.current}/shop/player" />
+                 command="ln -s ../player/ ${server.path.current}/shop/player" />
         <echo>Creating symbolic links... done.</echo>
         <echo>Changing file mod...</echo>
         <ssh username="${server.username}" 
