@@ -24,24 +24,25 @@
         <delete dir="build-scripts" includeemptydirs="true" failonerror="true" />
         <delete dir="configurations" includeemptydirs="true" failonerror="true" />
         <echo>Copying media from live to dev system...</echo>
-	<exec command="rsync -vae ssh bamboo@motivado.com:/var/www/media /var/www --delete --force" checkreturn="true"/>
-	<echo>Copying media to dev system done.</echo>
-	<echo>Copying data to dev system...</echo>
-        <copy file="./" todir="${server.path.next}" overwrite="true" />
-	<echo>Switching Website...</echo>
-	<move file="${server.path.current}" tofile="${server.old.prefix}`date +%F_%H%M%S`" overwrite="true"/>
+		<exec command="rsync -vae ssh bamboo@motivado.com:/var/www/media /var/www --delete --force" checkreturn="true"/>
+		<echo>Copying media to dev system done.</echo>
+		<echo>Copying data to dev system...</echo>
+		<mkdir dir="${server.path.next}" />
+        <exec command="cp -R . ${server.path.next}" checkreturn="true"/>
+		<echo>Switching Website...</echo>
+		<move file="${server.path.current}" tofile="${server.old.prefix}`date +%F_%H%M%S`" overwrite="true"/>
         <move file="${server.path.next}" tofile="${server.path.current}" />
         <echo>Creating symbolic links...</echo>
         <exec command="ln -s ${server.path.current}/shop/../../media/ ${server.path.current}/shop/media" />
-	<exec command="ln -s ${server.path.current}/shop/../../motivado-old/ ${server.path.current}/shop/application" />
-	<exec command="ln -s ${server.path.current}/shop/../../content/ ${server.path.current}/shop/content" />
-	<exec command="ln -s ${server.path.current}/shop/../../coops/ ${server.path.current}/shop/coops" />
-	<exec command="ln -s ${server.path.current}/shop/media/documents/ ${server.path.current}/shop/download" />
-  	<exec command="ln -s ${server.path.current}/shop/../player/ ${server.path.current}/shop/player" />
+		<exec command="ln -s ${server.path.current}/shop/../../motivado-old/ ${server.path.current}/shop/application" />
+		<exec command="ln -s ${server.path.current}/shop/../../content/ ${server.path.current}/shop/content" />
+		<exec command="ln -s ${server.path.current}/shop/../../coops/ ${server.path.current}/shop/coops" />
+		<exec command="ln -s ${server.path.current}/shop/media/documents/ ${server.path.current}/shop/download" />
+	  	<exec command="ln -s ${server.path.current}/shop/../player/ ${server.path.current}/shop/player" />
         <echo>Creating symbolic links... done.</echo>
         <echo>Changing file mod...</echo>
-   	<exec command="chmod -R 777 ${server.path.current}/shop/var" />
-	<echo>Switching Website... done.</echo>                 
+	   	<exec command="chmod -R 777 ${server.path.current}/shop/var" />
+		<echo>Switching Website... done.</echo>                 
         <!-- KILL SESSIONS -->
         <echo>BUILD SUCCESS</echo>
     </target>
