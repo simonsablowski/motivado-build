@@ -11,9 +11,9 @@
     	<echo>Removing .svn files...</echo>
     	<exec command="rm -rf `find . -type d -name .svn`" dir="." />
     	<echo>Copying configuration files...</echo>
-        <copy file="${shop.local.xml.file}" todir="shop/app/etc" />
-        <copy file="${api.configuration.file}" todir="motivado-api" />
-        <copy file="${importer.configuration.file}" todir="coaching-import" />
+        <copy file="${shop.local.xml.file}.dev" tofile="shop/app/etc/loca.xml" />
+        <copy file="${api.configuration.file}.dev" tofile="motivado-api/configuration.php" />
+        <copy file="${importer.configuration.file}.dev" tofile="coaching-import/configuration.php" />
         <move file="shop/.htaccess.live" tofile="shop/.htaccess" overwrite="true" />
 		<echo>Importing Coachings...</echo>
         <exec command="php coaching-import/cli/import.php" checkreturn="true" logoutput="true" />
@@ -23,67 +23,31 @@
         <delete dir="modeling" includeemptydirs="true" failonerror="true" />
         <delete dir="build-scripts" includeemptydirs="true" failonerror="true" />
         <delete dir="configurations" includeemptydirs="true" failonerror="true" />
-        <echo>Creating tarball...</echo>
-        <exec command="tar cfz phing.tar ./" checkreturn="true" />
-        <echo>Creating tarball... done.</echo>
-        <echo>Copying data to live system...</echo>
-        <scp username="${server.username}" 
-        	 password="${server.password}"
-        	 host="${server.host}" 
-        	 todir="${server.path.next}"
-        	 autocreate="true"
-        	 file="phing.tar" />
-        <echo>Untar data on live system...</echo>
-        <ssh username="${server.username}" 
-        	 password="${server.password}"
-        	 host="${server.host}" 
-        	 command="tar --no-same-owner -C ${server.path.next} -xf ${server.path.next}/phing.tar" />
-        <echo>Remove tarball from live system...</echo>
-		<ssh username="${server.username}" 
-                 password="${server.password}"
-                 host="${server.host}" 
-                 command="rm ${server.path.next}/phing.tar" />
-        <echo>Switching Website...</echo>
-        <ssh username="${server.username}" 
-                 password="${server.password}"
-                 host="${server.host}" 
-                 command="mv ${server.path.current} ${server.old.prefix}`date +%F_%H%M%S`" />
-        <ssh username="${server.username}" 
-                 password="${server.password}"
-                 host="${server.host}" 
-                 command="mv ${server.path.next} ${server.path.current}" />
+        <echo>Copying media from live to dev system...</echo>
+	<scp 
+		username="${server.username}" 
+		password="${server.password}"
+		host="${server.host}" 
+		fetch="true"
+		todir="/var/www/media"
+		file="/var/www/media">
+	<echo Copying media to dev system done.</echo>
+	<echo>Copying data to dev system...</echo>
+        <copy file="./" todir="${server.path.next}" overwrite="true" />
+	<echo>Switching Website...</echo>
+	<move file="${server.path.current}" tofile="${server.old.prefix}`date +%F_%H%M%S`" overwrite="true"/>
+        <move file="${server.path.next}" tofile="${server.path.current}" />
         <echo>Creating symbolic links...</echo>
-        <ssh username="${server.username}" 
-                 password="${server.password}"
-                 host="${server.host}" 
-                 command="ln -s ${server.path.current}/shop/../../media/ ${server.path.current}/shop/media" />
-        <ssh username="${server.username}" 
-                 password="${server.password}"
-                 host="${server.host}" 
-                 command="ln -s ${server.path.current}/shop/../../motivado-old/ ${server.path.current}/shop/application" />
-        <ssh username="${server.username}" 
-                 password="${server.password}"
-                 host="${server.host}" 
-                 command="ln -s ${server.path.current}/shop/../../content/ ${server.path.current}/shop/content" />
-        <ssh username="${server.username}" 
-                 password="${server.password}"
-                 host="${server.host}" 
-                 command="ln -s ${server.path.current}/shop/../../coops/ ${server.path.current}/shop/coops" />
-        <ssh username="${server.username}" 
-                 password="${server.password}"
-                 host="${server.host}" 
-                 command="ln -s ${server.path.current}/shop/media/documents/ ${server.path.current}/shop/download" />
-        <ssh username="${server.username}" 
-                 password="${server.password}"
-                 host="${server.host}" 
-                 command="ln -s ${server.path.current}/shop/../player/ ${server.path.current}/shop/player" />
+        <exec command="ln -s ${server.path.current}/shop/../../media/ ${server.path.current}/shop/media" />
+	<exec command="ln -s ${server.path.current}/shop/../../motivado-old/ ${server.path.current}/shop/application" />
+	<exec command="ln -s ${server.path.current}/shop/../../content/ ${server.path.current}/shop/content" />
+	<exec command="ln -s ${server.path.current}/shop/../../coops/ ${server.path.current}/shop/coops" />
+	<exec command="ln -s ${server.path.current}/shop/media/documents/ ${server.path.current}/shop/download" />
+  	<exec command="ln -s ${server.path.current}/shop/../player/ ${server.path.current}/shop/player" />
         <echo>Creating symbolic links... done.</echo>
         <echo>Changing file mod...</echo>
-        <ssh username="${server.username}" 
-                 password="${server.password}"
-                 host="${server.host}" 
-                 command="chmod -R 777 ${server.path.current}/shop/var" />
-		<echo>Switching Website... done.</echo>                 
+   	<exec command="chmod -R 777 ${server.path.current}/shop/var" />
+	<echo>Switching Website... done.</echo>                 
         <!-- KILL SESSIONS -->
         <echo>BUILD SUCCESS</echo>
     </target>
