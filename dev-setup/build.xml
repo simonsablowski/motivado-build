@@ -24,13 +24,7 @@
         <delete dir="build-scripts" includeemptydirs="true" failonerror="true" />
         <delete dir="configurations" includeemptydirs="true" failonerror="true" />
         <echo>Copying media from live to dev system...</echo>
-	<scp 
-		username="${server.username}" 
-		password="${server.password}"
-		host="${server.host}" 
-		fetch="true"
-		todir="/var/www/media"
-		file="/var/www/media"/>
+	<exec command="rsync -vae ssh bamboo@motivado.com:/var/www/media /var/www --delete --force" checkreturn="true"/>
 	<echo>Copying media to dev system done.</echo>
 	<echo>Copying data to dev system...</echo>
         <copy file="./" todir="${server.path.next}" overwrite="true" />
