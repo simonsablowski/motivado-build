@@ -31,7 +31,7 @@
 		fetch="true"
 		todir="/var/www/media"
 		file="/var/www/media"/>
-	<echoßCopying media to dev system done.</echo>
+	<echo>Copying media to dev system done.</echo>
 	<echo>Copying data to dev system...</echo>
         <copy file="./" todir="${server.path.next}" overwrite="true" />
 	<echo>Switching Website...</echo>
