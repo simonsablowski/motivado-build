@@ -30,7 +30,7 @@
 		host="${server.host}" 
 		fetch="true"
 		todir="/var/www/media"
-		file="/var/www/media">
+		file="/var/www/media"/>
 	<echo>Copying media to dev system done.</echo>
 	<echo>Copying data to dev system...</echo>
         <copy file="./" todir="${server.path.next}" overwrite="true" />
