@@ -31,7 +31,7 @@
         <exec command="cp -R . ${server.path.next}" checkreturn="true"/>
 		<echo>Switching Website...</echo>
 		<exec command="mv ${server.path.current} ${server.old.prefix}`date +%F_%H%M%S`" checkreturn="true" />
-        <exec command="${server.path.next} ${server.path.current}" checkreturn="true" />
+        <exec command="mv ${server.path.next} ${server.path.current}" checkreturn="true" />
         <echo>Creating symbolic links...</echo>
         <exec command="ln -s ${server.path.current}/shop/../../media/ ${server.path.current}/shop/media" />
 		<exec command="ln -s ${server.path.current}/shop/../../motivado-old/ ${server.path.current}/shop/application" />
