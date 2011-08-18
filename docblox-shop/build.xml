@@ -1,0 +1,14 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+
+<project name="docblox-shop" basedir="." default="run">
+
+    <!-- ============================================  -->
+    <!-- Target: run                     	  		   -->
+    <!-- ============================================  -->
+    <target name="run" description="run the docblox generator">
+    	<exec command="/usr/local/zend/bin/docblox run -d shop -t /var/tools/apidoc/shop | tee -a /var/tools/apidoc/shop/docblox.log" checkreturn="true" />
+        <echo>BUILD SUCCESS</echo>
+    </target>
+    
+</project>
+
