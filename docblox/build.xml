@@ -13,7 +13,7 @@
     <!-- Target: run                     	  		   -->
     <!-- ============================================  -->
     <target name="run" description="run the docblox generator">
-    	<property name="paths" value="coaching-import,coaching-test,motivado-api,motivado-ui,shop" />
+    	<property name="paths" value="coaching-import,coaching-test,motivado-api,motivado-ui" />
 		<foreach list="${paths}" param="path" target="docblox" />
         <echo>BUILD SUCCESS</echo>
     </target>
