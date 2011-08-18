@@ -15,10 +15,10 @@
         <copy file="${api.configuration.file}.dev" tofile="motivado-api/configuration.php" />
         <copy file="${importer.configuration.file}.dev" tofile="coaching-import/configuration.php" />
         <move file="shop/.htaccess.live" tofile="shop/.htaccess" overwrite="true" />
-		<echo>Importing Coachings...</echo>
+	<echo>Importing Coachings...</echo>
         <exec command="php coaching-import/cli/import.php" checkreturn="true" logoutput="true" />
-		<echo>Importing Coachings... done.</echo>
-		<echo>Cleanup</echo>
+	<echo>Importing Coachings... done.</echo>
+	<echo>Cleanup</echo>
         <delete dir="coaching-import" includeemptydirs="true" failonerror="true" />
         <delete dir="modeling" includeemptydirs="true" failonerror="true" />
         <delete dir="build-scripts" includeemptydirs="true" failonerror="true" />
@@ -31,7 +31,7 @@
 		fetch="true"
 		todir="/var/www/media"
 		file="/var/www/media">
-	<echo Copying media to dev system done.</echo>
+	<echo>Copying media to dev system done.</echo>
 	<echo>Copying data to dev system...</echo>
         <copy file="./" todir="${server.path.next}" overwrite="true" />
 	<echo>Switching Website...</echo>
