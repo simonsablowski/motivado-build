@@ -11,7 +11,7 @@
     	<echo>Removing .svn files...</echo>
     	<exec command="rm -rf `find . -type d -name .svn`" dir="." />
     	<echo>Copying configuration files...</echo>
-        <copy file="${shop.local.xml.file}.dev" tofile="shop/app/etc/loca.xml" />
+        <copy file="${shop.local.xml.file}.dev" tofile="shop/app/etc/local.xml" />
         <copy file="${api.configuration.file}.dev" tofile="motivado-api/configuration.php" />
         <copy file="${importer.configuration.file}.dev" tofile="coaching-import/configuration.php" />
         <move file="shop/.htaccess.dev" tofile="shop/.htaccess" overwrite="true" />
