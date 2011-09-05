@@ -15,9 +15,11 @@
         <copy file="${api.configuration.file}" todir="motivado-api" />
         <copy file="${importer.configuration.file}" todir="coaching-import" />
         <move file="shop/.htaccess.live" tofile="shop/.htaccess" overwrite="true" />
+		<!--
 		<echo>Importing Coachings...</echo>
         <exec command="php coaching-import/cli/import.php" checkreturn="true" logoutput="true" />
 		<echo>Importing Coachings... done.</echo>
+		-->
 		<echo>Cleanup</echo>
         <delete dir="coaching-import" includeemptydirs="true" failonerror="true" />
         <delete dir="modeling" includeemptydirs="true" failonerror="true" />
