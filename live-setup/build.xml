@@ -84,10 +84,6 @@
         <ssh username="${server.username}" 
                  password="${server.password}"
                  host="${server.host}" 
-                 command="chmod -R 777 ${server.path.current}/shop/app" />
-        <ssh username="${server.username}" 
-                 password="${server.password}"
-                 host="${server.host}" 
                  command="chmod -R 777 ${server.path.current}/shop/var" />
 		<echo>Switching Website... done.</echo>                 
         <!-- KILL SESSIONS -->
